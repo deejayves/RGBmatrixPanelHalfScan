@@ -345,7 +345,7 @@ void RGBmatrixPanelHalfScan::drawPixel(int16_t x, int16_t y, uint16_t c) {
     {
       y = y + 8;
     }
-    else if(y<17)
+    else if(y<16)
     {
       y = y - 8;
     }
