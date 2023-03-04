@@ -336,6 +336,29 @@ void RGBmatrixPanelHalfScan::drawPixel(int16_t x, int16_t y, uint16_t c) {
   g = (c >>  7) & 0xF; // rrrrrGGGGggbbbbb
   b = (c >>  1) & 0xF; // rrrrrggggggBBBBb
 
+  // Correcting for wrong pixel mapping (on P5 outdoor panels 1/8 scan) the fist 16 columns
+	// For column 0 to 15 the rows are mapped in this order:
+	// 8 9 10 11 12 13 14 15 0 1 2 3 4 5 6 7 24 25 26 27 28 29 30 32 16 17 18 19 20 21 22 23
+  if ( x < 16)
+  {
+    if (y<8)
+    {
+      y = y + 8;
+    }
+    else if(y<17)
+    {
+      y = y - 8;
+    }
+    else if (y<24)
+    {
+      y = y + 8;
+    }
+    else if (y<32)
+    {
+      y = y -8;
+    }
+  }
+
   // Loop counter stuff
   bit   = 2;
   limit = 1 << nPlanes;
